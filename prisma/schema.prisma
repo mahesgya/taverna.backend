@@ -1,0 +1,48 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admins {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+}
+
+model Authentications {
+  id            String  @id @default(uuid())
+  refresh_token String  @db.Text
+
+  @@unique([refresh_token(length: 512)])
+}
+
+model Testimonials {
+  id String @id @default(uuid())
+  name String
+  jobTitle String
+  description String   
+  option Boolean @default(false)
+  filepath String
+}
+
+model Menus {
+  id String @id @default(uuid())
+  category String 
+  name String
+  description String
+  filepath String
+}
+
+model Promos {
+   id String @id @default(uuid())
+   title String
+   description String
+   start_date DateTime
+   end_date DateTime
+   filepath String
+}
